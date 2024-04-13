@@ -1,0 +1,9 @@
+<server description="defaultServer">
+    <featureManager>
+        <feature>jakartaee-10.0</feature>
+    </featureManager>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443" />
+    <enterpriseApplication id="btd-app-ear"
+                           location="btd-app-ear.ear"
+                           name="btd-app-ear" />
+</server>
