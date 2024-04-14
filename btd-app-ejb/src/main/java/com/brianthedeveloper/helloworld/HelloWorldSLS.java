@@ -9,8 +9,8 @@ public class HelloWorldSLS {
     private static final Logger logger = LogManager.getLogger("HelloWorldSLS");
 
     public String sayHello() {
-        logger.debug("Hello World4!");
+        logger.debug("Hello World!");
 
-        return "Hello World4!";
+        return "Hello World!";
     }
 }
