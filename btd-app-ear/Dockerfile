@@ -1,5 +1,5 @@
 # Use the official Open Liberty runtime as a base image
-FROM openliberty/open-liberty:kernel-slim-java21-openj9-ubi-minimal
+FROM openliberty/open-liberty:full-java21-openj9-ubi-minimal
 
 # The ARG instruction defines a variable that users can pass at build-time to the builder with the docker build command.
 ARG VERSION=1.0
