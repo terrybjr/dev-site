@@ -1,6 +1,17 @@
 pipeline {
     agent any
     stages {
+        stage('Setup Environment') {
+            steps {
+                script {
+                    // Install SDKMAN
+                    sh 'curl -s "https://get.sdkman.io" | bash'
+                    sh 'source "$HOME/.sdkman/bin/sdkman-init.sh"'
+                    // Install Java 21
+                    sh 'sdk install java 21.0.0.j9-adpt'
+                }
+            }
+        }
         stage('Clean') {
             steps {
                 sh 'mvn clean'
