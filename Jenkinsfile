@@ -3,25 +3,25 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                bat 'mvn clean'
+                sh 'mvn clean'
             }
         }
         stage('Install') {
             steps {
-                bat 'mvn install'
+                sh 'mvn install'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('btd-app:latest', '.')
+                    docker.build('my-image:latest', '.')
                 }
             }
         }
         stage('Replace Image in Container') {
             steps {
                 script {
-                    docker.image('btd-app:latest').withRun('-d -p 9080:9080') { c ->
+                    docker.image('my-image:latest').withRun('-d -p 8080:8080') { c ->
                         echo 'Container ID: ' + c.id
                     }
                 }
