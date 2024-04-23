@@ -1,17 +1,17 @@
 pipeline {
     agent any
-     environment {
-            SDKMAN_DIR = "~/var/jenkins_home/.sdkman" // Set the SDKMAN_DIR environment variable
+    environment {
+        SDKMAN_DIR = "/var/jenkins_home/.sdkman"
     }
     stages {
         stage('Setup Environment') {
             steps {
                 script {
-                    // Install SDKMAN
-                    sh 'curl -s "https://get.sdkman.io" | bash'
-                    sh 'source "$SDKMAN_DIR/bin/sdkman-init.sh"'
-                    // Install Java 21
-                    sh 'sdk install java 21.0.0.j9-adpt'
+                    sh '''
+                        curl -s "https://get.sdkman.io" | bash
+                        source "$SDKMAN_DIR/bin/sdkman-init.sh"
+                        sdk install java 21.0.0.j9-adpt
+                    '''
                 }
             }
         }
