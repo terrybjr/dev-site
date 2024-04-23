@@ -1,16 +1,14 @@
 pipeline {
     agent any
-    environment {
-        SDKMAN_DIR = "/var/jenkins_home/.sdkman"
-    }
     stages {
         stage('Setup Environment') {
             steps {
                 script {
                     sh(script: '''
-                        curl -s "https://get.sdkman.io" | bash
-                        . "$SDKMAN_DIR/bin/sdkman-init.sh"
-                        sdk install java 17.0.1.j9-adpt
+                        sudo apt update
+                        sudo apt install -y openjdk-17-jdk
+                        echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" >> $HOME/.bashrc
+                        source $HOME/.bashrc
                     ''', returnStdout: true, shell: '/bin/bash')
                 }
             }
@@ -28,14 +26,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('my-image:latest', '.')
+                    docker.build('btd-app:latest', '.')
                 }
             }
         }
         stage('Replace Image in Container') {
             steps {
                 script {
-                    docker.image('my-image:latest').withRun('-d -p 8080:8080') { c ->
+                    docker.image('btd-app:latest').withRun('-d -p 9080:9080') { c ->
                         echo 'Container ID: ' + c.id
                     }
                 }
