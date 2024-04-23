@@ -1,11 +1,13 @@
 pipeline {
     agent any
+    environment {
+        SDKMAN_DIR = tool 'SDKMAN' // Ensure 'SDKMAN' is configured as a tool in Jenkins
+    }
     stages {
         stage('Setup Environment') {
             steps {
                 script {
-                    // Install Java 21
-                    sh 'sdk install java 21.0.0.j9-adpt'
+                    sh 'source "$SDKMAN_DIR/bin/sdkman-init.sh"'
                 }
             }
         }
