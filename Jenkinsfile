@@ -8,8 +8,9 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        curl -s "https://get.sdkman.io" | bash
                         . "$SDKMAN_DIR/bin/sdkman-init.sh"
-                        sdk install java 17.0.1.j9-adpt
+                        sdk install java 21.0.0.j9-adpt
                     '''
                 }
             }
