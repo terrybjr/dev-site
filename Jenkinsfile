@@ -1,7 +1,7 @@
 pipeline {
     agent any
      environment {
-            SDKMAN_DIR = "/var/jenkins_home/.sdkman" // Set the SDKMAN_DIR environment variable
+            SDKMAN_DIR = "~/var/jenkins_home/.sdkman" // Set the SDKMAN_DIR environment variable
     }
     stages {
         stage('Setup Environment') {
