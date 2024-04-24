@@ -21,9 +21,11 @@ pipeline {
         stage('Replace Image in Container') {
             steps {
                 script {
-                    docker.image('btd-app:latest').withRun('-d -p 9080:9080') { c ->
-                        echo 'Container ID: ' + c.id
-                    }
+                    sh '''
+                        docker ps -q -f ancestor=btd-app:latest | xargs -r docker stop
+                        docker ps -a -q -f ancestor=btd-app:latest | xargs -r docker rm
+                        docker run -d -p 9080:9080 btd-app:latest
+                    '''
                 }
             }
         }
