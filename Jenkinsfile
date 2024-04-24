@@ -11,6 +11,18 @@ pipeline {
                 sh 'mvn install' // Execute 'mvn install' command
             }
         }
+
+        stage('Stop Existing Docker Container') { // Stage for stopping any existing Docker container
+            steps {
+                script {
+                    // Stop any running Docker containers from the 'btd-app:latest' image
+                    sh '''
+                       docker ps -q -f ancestor=btd-app:latest | xargs -r docker stop
+                       docker ps -a -q -f ancestor=btd-app:latest | xargs -r docker rm
+                    '''
+                }
+            }
+        }
         stage('Build Docker Image') { // Stage for building the Docker image
             steps {
                 script {
@@ -22,14 +34,8 @@ pipeline {
         stage('Replace Image in Container') { // Stage for replacing the running Docker container with a new one
             steps {
                 script {
-                    // Stop any running Docker containers from the 'btd-app:latest' image
-                    // Remove any Docker containers from the 'btd-app:latest' image
-                    // Run a new Docker container from the 'btd-app:latest' image
-                    sh '''
-                        docker ps -q -f ancestor=btd-app:latest | xargs -r docker stop
-                        docker ps -a -q -f ancestor=btd-app:latest | xargs -r docker rm
-                        docker run -d -p 9080:9080 btd-app:latest 
-                    '''
+                    // Run the Docker container from the 'btd-app:latest' image
+                    sh 'docker run -d -p 8080:8080 btd-app:latest'
                 }
             }
         }
