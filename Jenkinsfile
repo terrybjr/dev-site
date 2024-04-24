@@ -1,18 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Setup Environment') {
-            steps {
-                script {
-                    sh(script: '''
-                        sudo apt update
-                        sudo apt install -y openjdk-17-jdk
-                        echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" >> $HOME/.bashrc
-                        source $HOME/.bashrc
-                    ''', returnStdout: true, shell: '/bin/bash')
-                }
-            }
-        }
         stage('Clean') {
             steps {
                 sh 'mvn clean'
