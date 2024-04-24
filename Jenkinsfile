@@ -14,7 +14,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('btd-app:latest', '.')
+                    docker.build('btd-app:latest', './btd-app-ear')
                 }
             }
         }
