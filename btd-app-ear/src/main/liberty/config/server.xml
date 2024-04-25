@@ -6,5 +6,6 @@
     <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
     <enterpriseApplication id="btd-app-ear"
                            location="btd-app-ear.ear"
-                           name="btd-app-ear"/>
+                           name="btd-app-ear"
+                           contextRoot="btd-app-ws"/>
 </server>
